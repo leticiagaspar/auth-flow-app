@@ -3,15 +3,9 @@ import { useNavigate } from "@tanstack/react-router";
 import type { SignInForm } from "@/components/login-form";
 import { useEffect, useState, type SubmitEvent } from "react";
 import type { LoggedUser } from "@/types";
+import { getCookie } from "@/lib/auth";
 
 const baseURL = "https://dummyjson.com";
-
-function getCookie(cookieName: string) {
-  return document.cookie
-    .split("; ")
-    .find((c) => c.startsWith(`${cookieName}=`))
-    ?.split("=")[1];
-}
 
 export function useAuth() {
   const [loggedUser, setLoggedUser] = useState<LoggedUser | null>(null);
@@ -61,7 +55,8 @@ export function useAuth() {
     const json = await response.json();
 
     if (!response.ok) {
-      return toast.error(json.message);
+      toast.error(json.message);
+      return;
     }
 
     toast.success("Welcome...");
