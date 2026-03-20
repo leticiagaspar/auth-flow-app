@@ -14,6 +14,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { Link } from "@tanstack/react-router";
 import {
   MoreHorizontalIcon,
   FolderIcon,
@@ -36,10 +37,14 @@ export function NavProjects({
       <SidebarMenu>
         {projects.map((item) => (
           <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton render={<a href={item.url} />}>
-              {item.icon}
-              <span>{item.name}</span>
-            </SidebarMenuButton>
+            <SidebarMenuButton
+              render={
+                <Link to={item.url} className="flex items-center gap-2 w-full">
+                  {item.icon}
+                  <span>{item.name}</span>
+                </Link>
+              }
+            />
             <DropdownMenu>
               <DropdownMenuTrigger
                 render={
